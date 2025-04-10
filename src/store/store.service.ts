@@ -1,26 +1,64 @@
-import { Injectable } from '@nestjs/common';
-import { CreateStoreDto } from './dto/create-store.dto';
-import { UpdateStoreDto } from './dto/update-store.dto';
+import { Injectable, Param, Query } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { store, storeModel, } from './schemas/store.schema';
 
 @Injectable()
 export class StoreService {
-  create(createStoreDto: CreateStoreDto) {
-    return 'This action adds a new store';
+  constructor(@InjectModel(store.name) private readonly storeModel:storeModel){}
+  async create(store: {
+    name: string;
+    logo: string;
+    description: string;
+    Minorder: number;
+    takeawymins: number;
+    deliverytime: number;
+    location: string;
+    enable: boolean;
+  }) {
+    try {
+      const newRestaurent =await new this.storeModel(store).save()
+      if(!newRestaurent){
+        return {message:"server error"}
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  async restaurentList(){
+    try {
+      const getallrestaurents=this.storeModel.find()
+      if(!getallrestaurents){
+        return {message:"nothing found"}
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  async updateRestaurent(store: {
+    name: string;
+    logo: string;
+    description: string;
+    Minorder: number;
+    takeawymins: number;
+    deliverytime: number;
+    location: string;
+    enable: boolean;},@Param("id") id:string){
+      try {
+        const update =await this.storeModel.findByIdAndUpdate(id,store)
+        if(!update){
+          return{message:"restaurent cannot be updated"}
+        }
+        
+      } catch (error) {
+        console.log(error)
+      }
+  }
+  async deleteRestaurent (@Param("id") id:string ){
+     try {
+      const deleteRestaurent =this.storeModel.findByIdAndDelete(id)
+     } catch (error) {
+      console.log(error)
+     }
   }
 
-  findAll() {
-    return `This action returns all store`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} store`;
-  }
-
-  update(id: number, updateStoreDto: UpdateStoreDto) {
-    return `This action updates a #${id} store`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} store`;
-  }
 }
