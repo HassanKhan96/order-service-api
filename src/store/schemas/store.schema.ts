@@ -1,6 +1,7 @@
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Model } from 'mongoose';
+import { locationSchema } from './location.schema';
 
 @Schema()
 export class store {
@@ -14,17 +15,17 @@ export class store {
   description: String;
 
   @Prop()
-  minimumorderprice: Number;
+  minOrderPrice: Number;
 
   @Prop()
-  deliverytime: Number;
+  deliveryMins: Number;
 
   @Prop()
-  location: String;
+  takeAwayMins: String;
 
   @Prop()
-  takeawayinmins: Number;
-  
+  location:locationSchema
+
   @Prop()
   enabled: boolean;
 }

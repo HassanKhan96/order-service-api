@@ -11,13 +11,13 @@ export class CreateStoreDto {
   @IsString()
   description: string;
 
-  @IsString()
+  @IsNumber()
   minOrderPrice: number;
 
-  @IsString()
+  @IsNumber()
   deliveryMins: number;
 
- @IsString()
+ @IsNumber()
   takeAwayMins: string;
 
   @IsObject()
