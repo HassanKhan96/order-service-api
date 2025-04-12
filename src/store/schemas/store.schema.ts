@@ -6,8 +6,10 @@ import { HydratedDocument, Model } from 'mongoose';
 export class store {
   @Prop()
   name: String;
+
   @Prop()
   logo: String;
+  
   @Prop()
   description: String;
   @Prop()
