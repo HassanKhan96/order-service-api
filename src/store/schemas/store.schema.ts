@@ -12,14 +12,19 @@ export class store {
   
   @Prop()
   description: String;
+
   @Prop()
   minimumorderprice: Number;
+
   @Prop()
   deliverytime: Number;
+
   @Prop()
   location: String;
+
   @Prop()
   takeawayinmins: Number;
+  
   @Prop()
   enabled: boolean;
 }
