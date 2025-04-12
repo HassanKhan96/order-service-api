@@ -1,4 +1,4 @@
-import { IsBoolean, IsNumber, IsObject, IsString } from 'class-validator';
+import { IsBoolean, IsNumber, IsObject, isString, IsString } from 'class-validator';
 import { LocationDto } from './location.dto';
 
 export class CreateStoreDto {
@@ -11,14 +11,14 @@ export class CreateStoreDto {
   @IsString()
   description: string;
 
-  @IsNumber()
+  @IsString()
   minOrderPrice: number;
 
-  @IsNumber()
+  @IsString()
   deliveryMins: number;
 
-  @IsNumber()
-  takeAwayMins: number;
+ @IsString()
+  takeAwayMins: string;
 
   @IsObject()
   location: LocationDto;

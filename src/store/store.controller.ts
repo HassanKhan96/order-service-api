@@ -12,7 +12,7 @@ export class StoreController {
     return this.storeService.restaurentList()
   }
   @Post("/add")
-  newUser(@Body() body:any){
+  newUser(@Body() body:CreateStoreDto){
     return this.storeService.create(body)
 
   }
