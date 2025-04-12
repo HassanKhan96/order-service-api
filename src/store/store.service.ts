@@ -56,6 +56,9 @@ export class StoreService {
   async deleteRestaurent (@Param("id") id:string ){
      try {
       const deleteRestaurent =this.storeModel.findByIdAndDelete(id)
+      if(!deleteRestaurent){
+        return{message:"retaurent can not be deleted"}
+      }
      } catch (error) {
       console.log(error)
      }
