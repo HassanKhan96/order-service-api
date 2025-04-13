@@ -28,20 +28,13 @@ export class StoreService {
       console.log(error)
     }
   }
-  async updateRestaurent(store: {
-    name: string;
-    logo: string;
-    description: string;
-    Minorder: number;
-    takeawymins: number;
-    deliverytime: number;
-    location: string;
-    enable: boolean;},@Param("id") id:string){
+  async updateRestaurent(store: CreateStoreDto,@Param("id") id:string){
       try {
         const update =await this.storeModel.findByIdAndUpdate(id,store)
         if(!update){
           return{message:"restaurent cannot be updated"}
         }
+        return {message: "restaurent updated",update}
         
       } catch (error) {
         console.log(error)

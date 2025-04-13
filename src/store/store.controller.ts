@@ -16,11 +16,11 @@ export class StoreController {
     return this.storeService.create(body)
 
   }
-  @Put("/update")
-  update(@Body() body:any,@Param("id") id:string){
+  @Put("/update/:id")
+  update(@Body() body:CreateStoreDto,@Param("id") id:string){
      return this.storeService.updateRestaurent(body,id)
   }
-  @Delete("/delete")
+  @Delete("/delete/:id")
   delete(@Param("id") id:string ){
        return this.storeService.deleteRestaurent(id)
   }
