@@ -14,7 +14,7 @@ export class CreateCategoryDto {
   textcolor:string
 
   @IsString()
-  BAckgroundcolor:string
+  Backgroundcolor:string
 
   @IsString()
   storeId:string
