@@ -1,4 +1,7 @@
-import { IsString } from 'class-validator';
+import { IsMongoId, IsString } from 'class-validator';
+
+
+
 
 export class CreateCategoryDto {
   @IsString()
@@ -16,6 +19,8 @@ export class CreateCategoryDto {
   @IsString()
   Backgroundcolor:string
 
+
+  @IsMongoId()
   @IsString()
   storeId:string
 }

@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Model } from 'mongoose';
+import mongoose, { HydratedDocument, Model } from 'mongoose';
 
 @Schema()
 export class Category {
@@ -18,8 +18,8 @@ export class Category {
   @Prop()
   Backgroundcolor: string;
 
-  @Prop()
-  storeId: string;
+  @Prop({ref:"store"})
+  storeId: mongoose.Schema.Types.ObjectId
 }
 
 export const categorySchema = SchemaFactory.createForClass(Category);

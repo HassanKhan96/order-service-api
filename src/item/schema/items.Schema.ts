@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Model } from 'mongoose';
+import { ref } from 'process';
 
 @Schema()
 export class item {
@@ -12,7 +13,7 @@ export class item {
   @Prop()
   image: string;
 
-  @Prop()
+  @Prop({ref:"category"})
   categoryId: string;
 
   @Prop()

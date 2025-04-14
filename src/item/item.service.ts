@@ -16,7 +16,7 @@ export class ItemService {
   }
 
   async findAll() {
-    const allitems = await this.itemmodel.find();
+    const allitems = await this.itemmodel.find().populate("category").exec()
     if (!allitems) {
       return {
         message: 'cannot get products',
