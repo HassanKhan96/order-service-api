@@ -28,6 +28,7 @@ export class store {
 
   @Prop()
   enabled: boolean;
+  
 }
 export const storeschema = SchemaFactory.createForClass(store)
 

@@ -30,4 +30,4 @@ export const categorySchemaObject = {
 };
 export type categoryhydrateDocument = HydratedDocument<Category>;
 
-export type categoryModel = Model<Category>;
+export type CategoryModel = Model<Category>;
