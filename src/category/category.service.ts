@@ -19,22 +19,23 @@ export class CategoryService {
     const createCategory = await new this.categoryModel(category).save();
 
     if (!createCategory) {
-      return new InternalServerErrorException("this category cannot be created")
+      return new InternalServerErrorException(
+        'this category cannot be created',
+      );
     }
     return { message: 'category created' };
   }
 
-  async findAll(@Query('storeId') storeId: string) {
+  async findAll(@Query('storeId') storeId?: string) {
     const categories = await this.categoryModel.find({ storeId });
-
-    return categories;
+    return categories
   }
   async findById(id: string) {
     const category = await this.categoryModel.findById(id);
     if (!category) {
-      return new NotFoundException("this id can not be find")
+      return new NotFoundException('this id can not be find');
     }
-    return category
+    return category;
   }
 
   async update(id: string, category: CreateCategoryDto) {
@@ -55,7 +56,9 @@ export class CategoryService {
   async remove(id: string) {
     const deleteCategory = await this.categoryModel.findByIdAndDelete(id);
     if (!deleteCategory) {
-      return new  InternalServerErrorException("this category can not be deleted")
+      return new InternalServerErrorException(
+        'this category can not be deleted',
+      );
     }
     return { message: 'category deleted' };
   }

@@ -22,8 +22,8 @@ export class CategoryController {
   }
 
   @Get()
-  findAll(@Query('storeId') storeId: string) {
-    return this.categoryService.findAll(storeId);
+  findAll(@Query('storeId') storeId?: string) {
+   return this.categoryService.findAll(storeId);
   }
   @Get(':id')
   findById(@Param('id') id: string) {

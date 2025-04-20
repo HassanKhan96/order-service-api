@@ -13,11 +13,12 @@ export class item {
   @Prop()
   image: string;
 
-  @Prop({ref:"category"})
+  @Prop({ref:"Category"})
   categoryId: mongoose.Schema.Types.ObjectId;
 
   @Prop({ref:"store"})
-  storeId: string;
+    storeId:mongoose.Schema.Types.ObjectId
+   
 }
 
 export const itemSchema  =SchemaFactory.createForClass(item)

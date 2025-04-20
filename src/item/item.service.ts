@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -10,26 +10,24 @@ export class ItemService {
   async create(item: CreateItemDto) {
     const newitem = await new this.itemmodel(item).save();
     if (!newitem) {
-      return { message: 'new item cnnot be created' };
+      return InternalServerErrorException;
     }
     return { message: 'new item created' };
   }
 
   async findAll() {
-    const allitems = await this.itemmodel.find().populate("categoryId").exec()
+    const allitems = await this.itemmodel.find().populate("VariationId").exec()
     if (!allitems) {
-      return {
-        message: 'cannot get products',
-      };
+      return NotFoundException
     }
-    return allitems;
+   return allitems
   }
 
 
   async update(id: string, item:CreateItemDto) {
      const updateItems =await this.itemmodel.findByIdAndUpdate(id,item)
      if(!updateItems){
-      return{message:"items cannot be updated"}
+      return InternalServerErrorException
      }
      return {message:"item updated",updateItems}
   }
@@ -37,7 +35,7 @@ export class ItemService {
  async  remove(id: string) {
     const deletitem =await this.itemmodel.findByIdAndDelete(id)
     if(!deletitem){
-      return {message:"this item csnnot be deleted"}
+      return InternalServerErrorException
     }
     return {message:"item deleted",deletitem};
   }
