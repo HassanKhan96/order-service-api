@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ChoicesService } from './choices.service';
 import { CreateChoiceDto } from './dto/create-choice.dto';
 import { UpdateChoiceDto } from './dto/update-choice.dto';
+import { getHeapStatistics } from 'v8';
 
 @Controller('choices')
 export class ChoicesController {
@@ -15,6 +16,10 @@ export class ChoicesController {
   @Get()
   findAll() {
     return this.choicesService.findAll();
+  }
+  @Get()
+  getchoice(@Param("id") id:string){
+    return this.choicesService.findById(id)
   }
 
 

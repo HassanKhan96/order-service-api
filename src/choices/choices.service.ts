@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, NotFoundException, Param } from '@nestjs/common';
 import { CreateChoiceDto } from './dto/create-choice.dto';
 import { UpdateChoiceDto } from './dto/update-choice.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -18,6 +18,9 @@ export class ChoicesService {
  async  findAll() {
     const choices = await this.choicesModel.find()
     return choices
+  }
+  async findById( id:string){
+    const choice = await this.choicesModel.findById(id)
   }
 
 
