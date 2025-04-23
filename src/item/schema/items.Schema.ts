@@ -13,20 +13,19 @@ export class item {
   @Prop()
   image: string;
 
-  @Prop({ref:"Category"})
+  @Prop({ ref: 'Category' })
   categoryId: mongoose.Schema.Types.ObjectId;
 
-  @Prop({ref:"store"})
-    storeId:mongoose.Schema.Types.ObjectId
-   
+  @Prop({ ref: 'store' })
+  storeId: mongoose.Schema.Types.ObjectId;
 }
 
-export const itemSchema  =SchemaFactory.createForClass(item)
+export const itemSchema = SchemaFactory.createForClass(item);
 
-export const itemSchemaObject ={
-    name:item.name,
-    schema:itemSchema
-}
- export type itemhydrateDocument = HydratedDocument <item>
+export const itemSchemaObject = {
+  name: item.name,
+  schema: itemSchema,
+};
+export type itemhydrateDocument = HydratedDocument<item>;
 
-export type itemModel =Model <item>
+export type itemModel = Model<item>;

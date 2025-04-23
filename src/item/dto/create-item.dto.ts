@@ -18,7 +18,5 @@ export class CreateItemDto {
   @IsString()
   storeId: string;
 
-  @IsMongoId()
-  @IsString()
-  VariationId:string
+  
 }

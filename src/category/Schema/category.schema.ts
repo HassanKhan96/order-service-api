@@ -13,13 +13,13 @@ export class Category {
   image: string;
 
   @Prop()
-  textcolor: string;
+  textColor: string;
 
   @Prop()
-  Backgroundcolor: string;
+  backgroundColor: string;
 
-  @Prop({ref:"store"})
-  storeId: mongoose.Schema.Types.ObjectId
+  @Prop({ ref: 'store' })
+  storeId: mongoose.Schema.Types.ObjectId;
 }
 
 export const categorySchema = SchemaFactory.createForClass(Category);

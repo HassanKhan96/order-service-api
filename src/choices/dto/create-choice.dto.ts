@@ -1,12 +1,16 @@
-import { IsNumber, IsString } from "class-validator";
+import { IsMongoId, IsNumber, IsString } from 'class-validator';
 
 export class CreateChoiceDto {
-    @IsString()
-    nmae:string
+  @IsString()
+  nmae: string;
 
-    @IsString()
-    description:string
+  @IsString()
+  description: string;
 
-    @IsNumber()
-    price:number
+  @IsNumber()
+  price: number;
+
+  @IsMongoId()
+  @IsString()
+  variationId: string;
 }
