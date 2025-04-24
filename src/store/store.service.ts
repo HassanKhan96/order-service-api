@@ -1,26 +1,54 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Param, Query } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { store, storeModel, } from './schemas/store.schema';
 import { CreateStoreDto } from './dto/create-store.dto';
-import { UpdateStoreDto } from './dto/update-store.dto';
 
 @Injectable()
 export class StoreService {
-  create(createStoreDto: CreateStoreDto) {
-    return 'This action adds a new store';
+  constructor(@InjectModel(store.name) private readonly storeModel:storeModel){}
+  async create(store: CreateStoreDto) {
+    try {
+      const newRestaurent =await new this.storeModel(store).save()
+      if(!newRestaurent){
+        return {message:"server error"}
+      }
+      return {message:"restaurent created"}
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  async restaurentList(){
+    try {
+      const getallrestaurents=this.storeModel.find()
+      if(!getallrestaurents){
+        return {message:"nothing found"}
+      }
+      return getallrestaurents
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  async updateRestaurent(store: CreateStoreDto,@Param("id") id:string){
+      try {
+        const update =await this.storeModel.findByIdAndUpdate(id,store)
+        if(!update){
+          return{message:"restaurent cannot be updated"}
+        }
+        return {message: "restaurent updated",update}
+        
+      } catch (error) {
+        console.log(error)
+      }
+  }
+  async deleteRestaurent (@Param("id") id:string ){
+     try {
+      const deleteRestaurent =this.storeModel.findByIdAndDelete(id)
+      if(!deleteRestaurent){
+        return{message:"retaurent can not be deleted"}
+      }
+     } catch (error) {
+      console.log(error)
+     }
   }
 
-  findAll() {
-    return `This action returns all store`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} store`;
-  }
-
-  update(id: number, updateStoreDto: UpdateStoreDto) {
-    return `This action updates a #${id} store`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} store`;
-  }
 }
