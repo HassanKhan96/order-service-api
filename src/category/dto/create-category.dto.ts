@@ -1,4 +1,4 @@
-import { IsMongoId, IsString } from 'class-validator';
+import { IsBoolean, IsMongoId, IsString } from 'class-validator';
 
 
 
@@ -23,4 +23,7 @@ export class CreateCategoryDto {
   @IsMongoId()
   @IsString()
   storeId:string
+
+  @IsBoolean()
+  isAvailable:boolean
 }

@@ -1,4 +1,10 @@
-import { IsMongoId, isString, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsMongoId,
+  IsNumber,
+  isString,
+  IsString,
+} from 'class-validator';
 
 export class CreateItemDto {
   @IsString()
@@ -18,5 +24,9 @@ export class CreateItemDto {
   @IsString()
   storeId: string;
 
-  
+  @IsBoolean()
+  isAvailable: string;
+
+  @IsNumber()
+  position: number;
 }

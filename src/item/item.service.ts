@@ -27,6 +27,16 @@ export class ItemService {
           from: 'variations',
           localField: '_id',
           foreignField: 'itemId',
+          pipeline: [
+            {
+              $lookup: {
+                from: 'choices',
+                localField: '_id',
+                foreignField: 'variationId',
+                as: 'choices',
+              },
+            },
+          ],
           as: 'variations',
         },
       },
@@ -38,11 +48,10 @@ export class ItemService {
   }
 
   async findById(id: string) {
-    
     const item = await this.itemmodel.aggregate([
       {
         $match: {
-          _id: new mongoose.Types.ObjectId(id),
+          $or: [{ _id: new mongoose.Types.ObjectId(id) }],
         },
       },
       {

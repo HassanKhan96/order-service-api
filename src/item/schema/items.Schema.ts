@@ -18,6 +18,12 @@ export class item {
 
   @Prop({ ref: 'store' })
   storeId: mongoose.Schema.Types.ObjectId;
+
+  @Prop()
+  isAvailable: boolean;
+
+  @Prop()
+  position: number;
 }
 
 export const itemSchema = SchemaFactory.createForClass(item);
