@@ -1,0 +1,93 @@
+import {
+  Delete,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { users, usersModel } from './schema/users.schema';
+import { passwordService } from './password.service';
+import { AuthService } from 'src/auth/auth.service';
+import { AuthModule } from 'src/auth/auth.module';
+
+@Injectable()
+export class UsersService {
+  constructor(
+    @InjectModel(users.name) private readonly usersModel: usersModel,
+    private readonly passwordService: passwordService,
+    private readonly AuthService:AuthService
+  ) {}
+  async create(user: { name: string; email: string; password: string }) {
+    const takenEmail = await this.usersModel.findOne({ email: user.email });
+    if (takenEmail) {
+      return { message: 'this email is already taken' };
+    }
+    const { password, ...userInfo } = user;
+    const newPassword = await this.passwordService.hashPassword(password);
+    if (!newPassword) {
+      return { message: 'password connot be hashed' };
+    }
+
+    const newUsers = await new this.usersModel({
+      ...userInfo,
+      password: newPassword,
+    }).save();
+    if (!newUsers) {
+      return { message: 'user can not be created' };
+    }
+    return { Message: 'user created' };
+  }
+
+  async login(email: string, password: string) {
+    const existingUser = await this.usersModel.findOne({ email });
+    if (!existingUser) {
+      return { message: 'incorrect email or passsword' };
+    }
+    let verifiedPass = await this.passwordService.verify(
+      password,
+      existingUser.password,
+    );
+
+    const token = this.AuthService.generateToken({
+      id:existingUser._id,
+      email:existingUser.email
+    });
+
+
+    // const refreshToken = 
+    
+
+
+
+
+    if (!verifiedPass) {
+      return { message: 'user can not be logined' };
+    }
+
+    return { message: 'user logedin' };
+  }
+
+  async update(_id: string, user: CreateUserDto) {
+    const updatedUser = await this.usersModel.findByIdAndUpdate({ _id }, user);
+
+    if (!updatedUser) {
+      return new InternalServerErrorException('cannot update the user');
+    }
+    if (updatedUser) {
+      return { message: 'user updated' };
+    }
+  }
+
+  async delete(_id: string) {
+    const DeletedUser = await this.usersModel.findByIdAndDelete(_id);
+
+    if (!DeletedUser) {
+      return new InternalServerErrorException('cannot delete user');
+    }
+
+    if (DeletedUser) {
+      return { message: 'user deleted' };
+    }
+  }
+}
