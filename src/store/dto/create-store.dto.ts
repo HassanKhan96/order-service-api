@@ -25,4 +25,5 @@ export class CreateStoreDto {
 
   @IsBoolean()
   isEnabled: boolean;
+  
 }

@@ -20,6 +20,9 @@ export class Category {
 
   @Prop({ ref: 'store' })
   storeId: mongoose.Schema.Types.ObjectId;
+
+  @Prop()
+  isAvailable:boolean
 }
 
 export const categorySchema = SchemaFactory.createForClass(Category);

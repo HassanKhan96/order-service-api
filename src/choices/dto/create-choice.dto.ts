@@ -1,4 +1,4 @@
-import { IsMongoId, IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsMongoId, IsNumber, IsString } from 'class-validator';
 
 export class CreateChoiceDto {
   @IsString()
@@ -13,4 +13,7 @@ export class CreateChoiceDto {
   @IsMongoId()
   @IsString()
   variationId: string;
+
+  @IsBoolean()
+  isAvailable:boolean
 }
