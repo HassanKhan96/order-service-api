@@ -7,9 +7,17 @@ import { ItemModule } from './item/item.module';
 import { CategoryModule } from './category/category.module';
 import { VariationModule } from './variation/variation.module';
 import { ChoicesModule } from './choices/choices.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
-  imports: [StoreModule,MongooseModule.forRoot("mongodb://localhost:27017/orderingWebsite"), ItemModule, CategoryModule, VariationModule, ChoicesModule],
+  imports: [
+    StoreModule,
+    MongooseModule.forRoot('mongodb://localhost:27017/orderingWebsite'),
+    ItemModule,
+    CategoryModule,
+    VariationModule,
+    ChoicesModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
