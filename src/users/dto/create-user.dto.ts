@@ -1,4 +1,5 @@
-import { IsString } from "class-validator";
+import { IsObject, IsOptional, IsString } from "class-validator";
+import { CostumerDto } from "./costumer.Dto";
 
 export class CreateUserDto {
     @IsString()
@@ -9,6 +10,10 @@ export class CreateUserDto {
 
     @IsString()
     password:string;
+
+    @IsOptional()
+    @IsObject()
+    costumer:CostumerDto
 }
 
 
