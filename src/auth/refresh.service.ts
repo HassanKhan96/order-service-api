@@ -11,7 +11,7 @@ export class RefreshService{
         return this.jwtService.sign(payload)
  }
 
- async verifyRefreshToken(token:string):Promise<any>{
+ async verifyRefreshToken(token:string){
     try{
         return this.jwtService.verify(token);
     }catch(error){

@@ -21,7 +21,7 @@ export class CategoryController {
     return this.categoryService.create(createCategoryDto);
   }
 
-  @Get()
+  @Get("/Get")
   findAll(@Query('storeId') storeId?: string) {
    return this.categoryService.findAll(storeId);
   }

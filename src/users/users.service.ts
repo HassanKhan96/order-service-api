@@ -10,13 +10,15 @@ import { users, usersModel } from './schema/users.schema';
 import { passwordService } from './password.service';
 import { AuthService } from 'src/auth/auth.service';
 import { AuthModule } from 'src/auth/auth.module';
+import { RefreshService } from 'src/auth/refresh.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(users.name) private readonly usersModel: usersModel,
     private readonly passwordService: passwordService,
-    private readonly AuthService:AuthService
+    private readonly AuthService:AuthService,
+    private refreshTokenService:RefreshService
   ) {}
   async create(user: { name: string; email: string; password: string }) {
     const takenEmail = await this.usersModel.findOne({ email: user.email });
@@ -55,7 +57,10 @@ export class UsersService {
     });
 
 
-    // const refreshToken = 
+     const refreshToken = this.refreshTokenService.generateRefreshToken({
+      id:existingUser._id,
+      email:existingUser.email
+      })
     
 
 

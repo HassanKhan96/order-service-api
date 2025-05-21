@@ -20,7 +20,7 @@ export class ItemController {
     return this.itemService.create(item);
   }
 
-  @Get('/')
+  @Get('/Get')
   findAll() {
     return this.itemService.findAll();
   }

@@ -7,7 +7,7 @@ import { UpdateStoreDto } from './dto/update-store.dto';
 export class StoreController {
   constructor(private readonly storeService: StoreService) {}
        
-  @Get("/")
+  @Get("/GET")
   getall(){
     return this.storeService.restaurentList()
   }
