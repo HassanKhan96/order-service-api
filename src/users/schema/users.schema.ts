@@ -9,12 +9,12 @@ export class users{
     name:string;
 
     @Prop()
-    email:string;
+    email:string
 
     @Prop()
-    password:string;
+    password:string
      
-    @Prop()
+    @Prop({required:false})
     costumerData:Costumer
 
     

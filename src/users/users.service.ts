@@ -2,6 +2,7 @@ import {
   Delete,
   Injectable,
   InternalServerErrorException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -10,13 +11,15 @@ import { users, usersModel } from './schema/users.schema';
 import { passwordService } from './password.service';
 import { AuthService } from 'src/auth/auth.service';
 import { AuthModule } from 'src/auth/auth.module';
+import { RefreshService } from 'src/auth/refresh.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(users.name) private readonly usersModel: usersModel,
     private readonly passwordService: passwordService,
-    private readonly AuthService:AuthService
+    private readonly AuthService: AuthService,
+    private readonly RefreshService: RefreshService,
   ) {}
   async create(user: { name: string; email: string; password: string }) {
     const takenEmail = await this.usersModel.findOne({ email: user.email });
@@ -48,24 +51,22 @@ export class UsersService {
       password,
       existingUser.password,
     );
-
-    const token = this.AuthService.generateToken({
-      id:existingUser._id,
-      email:existingUser.email
-    });
-
-
-    // const refreshToken = 
     
-
-
-
-
     if (!verifiedPass) {
-      return { message: 'user can not be logined' };
+      return new UnauthorizedException('Wrong email or password');
     }
 
-    return { message: 'user logedin' };
+    const token = this.AuthService.generateToken({
+      id: existingUser._id,
+      email: existingUser.email,
+    });
+
+    const refreshToken = this.RefreshService.generateRefreshToken({
+      id: existingUser._id,
+      email: existingUser.email,
+    });
+
+    return { message: 'user logedin', token, refreshToken };
   }
 
   async update(_id: string, user: CreateUserDto) {

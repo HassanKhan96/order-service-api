@@ -1,10 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { ChoicesService } from './choices.service';
 import { CreateChoiceDto } from './dto/create-choice.dto';
 import { UpdateChoiceDto } from './dto/update-choice.dto';
 import { getHeapStatistics } from 'v8';
+import { AuthGuard } from 'src/auth/AuthGuard';
 
 @Controller('choices')
+@UseGuards(AuthGuard)
 export class ChoicesController {
   constructor(private readonly choicesService: ChoicesService) {}
 

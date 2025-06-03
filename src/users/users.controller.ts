@@ -13,9 +13,8 @@ export class UsersController {
   }
 
   @Post("/login")
-  login(@Body() email:string,passsword:string){
-    return this.usersService.login(email,passsword)
-
+  login(@Body() body:{email:string,password:string}){
+    return this.usersService.login(body.email,body.password)
   }
 
    @Put(':id')

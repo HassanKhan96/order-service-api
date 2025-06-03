@@ -8,6 +8,8 @@ import { CategoryModule } from './category/category.module';
 import { VariationModule } from './variation/variation.module';
 import { ChoicesModule } from './choices/choices.module';
 import { UsersModule } from './users/users.module';
+import { OrderModule } from './orders/orders.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -17,6 +19,9 @@ import { UsersModule } from './users/users.module';
     CategoryModule,
     VariationModule,
     ChoicesModule,
+    OrderModule,
+    UsersModule,
+  
   ],
   controllers: [AppController],
   providers: [AppService],
