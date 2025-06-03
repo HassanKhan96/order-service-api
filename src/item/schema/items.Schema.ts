@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument, Model } from 'mongoose';
 import { ref } from 'process';
+import { PriceSchema } from './price.schema';
 
 @Schema()
 export class item {
@@ -24,6 +25,9 @@ export class item {
 
   @Prop()
   position: number;
+
+  @Prop()
+  price: PriceSchema;
 }
 
 export const itemSchema = SchemaFactory.createForClass(item);

@@ -2,6 +2,7 @@ import {
   IsBoolean,
   IsMongoId,
   IsNumber,
+  IsObject,
   isString,
   IsString,
 } from 'class-validator';
@@ -29,4 +30,10 @@ export class CreateItemDto {
 
   @IsNumber()
   position: number;
+
+  @IsObject()
+  price: {
+    DELIVERY: number;
+    TAKE_AWAY: number;
+  };
 }

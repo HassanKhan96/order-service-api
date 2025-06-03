@@ -9,7 +9,7 @@ import { AuthGuard } from 'src/auth/AuthGuard';
 export class StoreController {
   constructor(private readonly storeService: StoreService) {}
        
-  @Get("/")
+  @Get("/GET")
   getall(){
     return this.storeService.restaurentList()
   }

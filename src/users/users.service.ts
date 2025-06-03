@@ -51,6 +51,8 @@ export class UsersService {
       password,
       existingUser.password,
     );
+
+ 
     
     if (!verifiedPass) {
       return new UnauthorizedException('Wrong email or password');
