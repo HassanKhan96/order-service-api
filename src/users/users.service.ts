@@ -1,7 +1,10 @@
 import {
   Delete,
+  Get,
   Injectable,
   InternalServerErrorException,
+  Req,
+  Res,
   UnauthorizedException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -12,6 +15,8 @@ import { passwordService } from './password.service';
 import { AuthService } from 'src/auth/auth.service';
 import { AuthModule } from 'src/auth/auth.module';
 import { RefreshService } from 'src/auth/refresh.service';
+import { Response ,Request} from 'express';
+
 
 @Injectable()
 export class UsersService {
@@ -45,17 +50,15 @@ export class UsersService {
   async login(email: string, password: string) {
     const existingUser = await this.usersModel.findOne({ email });
     if (!existingUser) {
-      return { message: 'incorrect email or passsword' };
+      throw new UnauthorizedException('Wrong email or passwordW');
     }
     let verifiedPass = await this.passwordService.verify(
       password,
       existingUser.password,
     );
 
- 
-    
     if (!verifiedPass) {
-      return new UnauthorizedException('Wrong email or password');
+      throw new UnauthorizedException('Wrong email or password');
     }
 
     const token = this.AuthService.generateToken({
@@ -68,7 +71,7 @@ export class UsersService {
       email: existingUser.email,
     });
 
-    return { message: 'user logedin', token, refreshToken };
+    return { token, refreshToken };
   }
 
   async update(_id: string, user: CreateUserDto) {
@@ -93,4 +96,5 @@ export class UsersService {
       return { message: 'user deleted' };
     }
   }
+  
 }

@@ -13,7 +13,7 @@ export class RefreshService{
 
  async verifyRefreshToken(token:string){
     try{
-        return this.jwtService.verify(token);
+        return await this.jwtService.verify(token);
     }catch(error){
         return new Error('Invalid Token')
     }

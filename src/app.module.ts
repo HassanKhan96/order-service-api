@@ -10,6 +10,8 @@ import { ChoicesModule } from './choices/choices.module';
 import { UsersModule } from './users/users.module';
 import { OrderModule } from './orders/orders.module';
 import { AuthModule } from './auth/auth.module';
+import { RefreshModule } from './auth/refresh.module';
+
 
 @Module({
   imports: [
@@ -21,7 +23,9 @@ import { AuthModule } from './auth/auth.module';
     ChoicesModule,
     OrderModule,
     UsersModule,
-  
+    AuthModule,
+    RefreshModule
+    
   ],
   controllers: [AppController],
   providers: [AppService],
