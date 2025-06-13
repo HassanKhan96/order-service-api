@@ -17,9 +17,32 @@ export class StoreService {
       console.log(error)
     }
   }
-  async restaurentList(){
+  async restaurentList(@Query() city:string ){
     try {
-      const getallrestaurents=this.storeModel.find()
+      const getallrestaurents=await this.storeModel.aggregate([
+      {
+        $project:{
+          name:1,
+          logo:1,
+          description:1,
+          takeAwayMins:1,
+          minOrderPrize:1,
+          deliveryMins:1,
+          isEnabled:1,
+          location:{
+            $filter:{
+              input:"$city",
+              as:"city",
+              cond:{$eq:["city",city]}
+
+             
+            }
+          }
+          
+
+        }
+      }
+      ])
       if(!getallrestaurents){
         return {message:"nothing found"}
       }

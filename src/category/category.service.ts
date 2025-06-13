@@ -27,7 +27,14 @@ export class CategoryService {
   }
 
   async findAll(@Query('storeId') storeId?: string) {
-    const categories = await this.categoryModel.find({ storeId });
+     const categories =await this.categoryModel.aggregate([{
+      $lookup:{
+        localField:"_id",
+        foreignField:"categoryId",
+        from:"items",
+        as:"items"
+      }
+     }])
     return categories
   }
   async findById(id: string) {
