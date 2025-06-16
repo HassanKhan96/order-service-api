@@ -7,14 +7,14 @@ export class users {
   @Prop()
   name: string;
 
-  @Prop()
-  email: string;
+    @Prop()
+    email:string;
 
-  @Prop()
-  password: string;
-
-  @Prop()
-  costumerData: Costumer;
+    @Prop()
+    password:string;
+     
+    @Prop()
+    costumerData:Costumer
 
   @Prop({ required: false, type: String })
   otp: string | null;

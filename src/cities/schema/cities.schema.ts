@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Model } from 'mongoose';
 
 @Schema()
-export class cities {
+export class city {
   @Prop()
   name: string;
 
@@ -13,13 +13,13 @@ export class cities {
   postalCode: number;
 }
 
-export const citiesSchema = SchemaFactory.createForClass(cities)
+export const citiesSchema = SchemaFactory.createForClass(city)
 
 export const citiesSchemaObject = {
-    name:cities.name,
+    name:city.name,
     schema:citiesSchema,
 
 };
 
-export type citiesDocument = HydratedDocument<cities>;
-export type citiesModel = Model<cities>;
+export type citiesDocument = HydratedDocument<city>;
+export type citiesModel = Model<city>;

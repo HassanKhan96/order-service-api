@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Put, UseGuards } from '@nestjs/common';
 import { VariationService } from './variation.service';
 import { CreateVariationDto } from './dto/create-variation.dto';
 import { UpdateVariationDto } from './dto/update-variation.dto';
+import { AuthGuard } from 'src/auth/AuthGuard';
 
 @Controller('variation')
+@UseGuards(AuthGuard)
 export class VariationController {
   constructor(private readonly variationService: VariationService) {}
 

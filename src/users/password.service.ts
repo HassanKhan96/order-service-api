@@ -9,6 +9,8 @@ export class passwordService {
     if (!hashPassword) {
       return { message: 'password cannot be hashed' };
     }
+    return hashPassword;
+  }
 
     return hashPassword;
   }

@@ -1,6 +1,9 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { RefreshService } from './refresh.service';
+import { AuthModule } from './auth.module';
+
+
 
 @Module({
   imports: [
@@ -9,6 +12,7 @@ import { RefreshService } from './refresh.service';
       secret: 'AYAN_SECRET',
       signOptions: { expiresIn: '7d' },
     }),
+    AuthModule
   ],
   controllers: [],
   providers: [RefreshService],
