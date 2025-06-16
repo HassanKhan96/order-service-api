@@ -11,14 +11,17 @@ import { passwordService } from './password.service';
 import { AuthService } from 'src/auth/auth.service';
 import { AuthModule } from 'src/auth/auth.module';
 import { RefreshService } from 'src/auth/refresh.service';
+import { EmailService } from 'src/email/email.service';
+import { verify } from 'crypto';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(users.name) private readonly usersModel: usersModel,
     private readonly passwordService: passwordService,
-    private readonly AuthService:AuthService,
-    private refreshTokenService:RefreshService
+    private readonly AuthService: AuthService,
+    private refreshTokenService: RefreshService,
+    private readonly emailService: EmailService,
   ) {}
   async create(user: { name: string; email: string; password: string }) {
     const takenEmail = await this.usersModel.findOne({ email: user.email });
@@ -31,14 +34,21 @@ export class UsersService {
       return { message: 'password connot be hashed' };
     }
 
-    const newUsers = await new this.usersModel({
+    const newUser = await new this.usersModel({
       ...userInfo,
       password: newPassword,
     }).save();
-    if (!newUsers) {
+
+    let otp = await this.emailService.sendEmail(newUser.email);
+
+    newUser.otp = otp;
+
+    if (!newUser) {
       return { message: 'user can not be created' };
     }
-    return { Message: 'user created' };
+    await newUser.save();
+
+    return { id: newUser._id, message: 'user created' };
   }
 
   async login(email: string, password: string) {
@@ -52,19 +62,14 @@ export class UsersService {
     );
 
     const token = this.AuthService.generateToken({
-      id:existingUser._id,
-      email:existingUser.email
+      id: existingUser._id,
+      email: existingUser.email,
     });
 
-
-     const refreshToken = this.refreshTokenService.generateRefreshToken({
-      id:existingUser._id,
-      email:existingUser.email
-      })
-    
-
-
-
+    const refreshToken = this.refreshTokenService.generateRefreshToken({
+      id: existingUser._id,
+      email: existingUser.email,
+    });
 
     if (!verifiedPass) {
       return { message: 'user can not be logined' };
@@ -94,5 +99,15 @@ export class UsersService {
     if (DeletedUser) {
       return { message: 'user deleted' };
     }
+  }
+
+  async verify(_id: string, Otp: string) {
+    const verifyUser = await this.usersModel.findOne({ _id, Otp });
+
+    if (!verifyUser) {
+      return new InternalServerErrorException('Otp cannot be verified');
+    }
+
+    return { message: 'Otp verified' };
   }
 }

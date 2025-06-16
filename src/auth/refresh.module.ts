@@ -14,4 +14,4 @@ import { RefreshService } from './refresh.service';
   providers: [RefreshService],
   exports: [RefreshService],
 })
-export class AuthModule {}
+export class RefreshModule {}
