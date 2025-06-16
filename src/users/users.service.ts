@@ -60,12 +60,11 @@ export class UsersService {
     if (!existingUser) {
       throw new UnauthorizedException('Wrong email or passwordW');
     }
-    let verifiedPass = await this.passwordService.(
+    let verifiedPass = await this.passwordService.verify(
       password,
       existingUser.password,
     );
 
-  
     if (!verifiedPass) {
       throw new UnauthorizedException('Wrong email or password');
     }

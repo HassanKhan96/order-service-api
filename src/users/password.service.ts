@@ -12,14 +12,9 @@ export class passwordService {
     return hashPassword;
   }
 
-    return hashPassword;
-  }
 
   async verify(password: string, hashPassword: string) {
-    const compare = await bcrypt.verify(password, hashPassword);
-    if (!compare) {
-      return { message: 'incorrect password' };
-    }
-    return hashPassword;
+    const compare = await bcrypt.compare(password, hashPassword);
+    return compare
   }
 }
