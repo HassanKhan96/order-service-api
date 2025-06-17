@@ -3,7 +3,6 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   Put,
@@ -14,7 +13,7 @@ import {
 } from '@nestjs/common';
 import { StoreService } from './store.service';
 import { CreateStoreDto } from './dto/create-store.dto';
-import { UpdateStoreDto } from './dto/update-store.dto';
+
 import { AuthGuard } from 'src/auth/AuthGuard';
 import { FileInterceptor } from '@nestjs/platform-express';
 
