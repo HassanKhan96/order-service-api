@@ -10,6 +10,6 @@ export class locationSchema {
   @Prop()
   longitude: number;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: city })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'cities' })
   city: string;
 }
