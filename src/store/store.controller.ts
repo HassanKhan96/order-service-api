@@ -18,7 +18,7 @@ import { AuthGuard } from 'src/auth/AuthGuard';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('store')
- @UseGuards(AuthGuard)
+@UseGuards(AuthGuard)
 export class StoreController {
   constructor(private readonly storeService: StoreService) {}
 
