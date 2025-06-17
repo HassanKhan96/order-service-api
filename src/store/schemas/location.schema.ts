@@ -1,19 +1,15 @@
-import { Prop, Schema } from "@nestjs/mongoose";
-
-
+import { Prop, Schema } from '@nestjs/mongoose';
+import mongoose from 'mongoose';
+import { city } from 'src/cities/schema/cities.schema';
 
 @Schema()
 export class locationSchema {
-    
-    @Prop()
-    latitude:string;
+  @Prop()
+  latitude: string;
 
-    @Prop()
-    longitude: number;
+  @Prop()
+  longitude: number;
 
-    @Prop()
-    city: string;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'cities' })
+  city: string;
 }
-
-
-

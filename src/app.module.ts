@@ -8,10 +8,10 @@ import { CategoryModule } from './category/category.module';
 import { VariationModule } from './variation/variation.module';
 import { ChoicesModule } from './choices/choices.module';
 import { UsersModule } from './users/users.module';
+import { EmailModule } from './email/email.module';
 import { OrderModule } from './orders/orders.module';
 import { AuthModule } from './auth/auth.module';
 import { RefreshModule } from './auth/refresh.module';
-
 
 @Module({
   imports: [
@@ -21,11 +21,11 @@ import { RefreshModule } from './auth/refresh.module';
     CategoryModule,
     VariationModule,
     ChoicesModule,
+    UsersModule,
     OrderModule,
     UsersModule,
     AuthModule,
-    RefreshModule
-    
+    RefreshModule,
   ],
   controllers: [AppController],
   providers: [AppService],
