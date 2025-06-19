@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, } from '@nestjs/common';
 import { citiesServices } from './cities.services';
 import { citiesDto } from './dto/cities.dto';
 import { updateCityDto } from './dto/updarecities.dto'; 
@@ -16,11 +16,10 @@ export class citiesController {
     return this.citiesServices.get();
   }
 
- @Put('update/:id')
-update(@Param('id') id: string, @Body() body: updateCityDto) {
-  return this.citiesServices.updateCity(id, body); 
-}
-
+    @Put('update/:id')
+      update(@Param('id')  id:string ,city:updateCityDto) {
+      return this.citiesServices.updateCity(id,city)
+      }
 
   @Delete('delete/:id')
   deleteCity(@Param('id') id: string) {

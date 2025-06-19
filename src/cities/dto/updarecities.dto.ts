@@ -3,4 +3,6 @@ import { citiesDto } from "./cities.dto";
 
 
 
-export class updateCityDto extends PartialType(citiesDto){}
+export class updateCityDto extends PartialType(citiesDto){
+  
+}
