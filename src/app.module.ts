@@ -12,11 +12,17 @@ import { EmailModule } from './email/email.module';
 import { OrderModule } from './orders/orders.module';
 import { AuthModule } from './auth/auth.module';
 import { RefreshModule } from './auth/refresh.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     StoreModule,
-    MongooseModule.forRoot('mongodb+srv://feast-point-service:fps2025@cluster0.3bts6s.mongodb.net'),
+    MongooseModule.forRoot(
+      process.env.MONGO_URI as string
+    ),
     ItemModule,
     CategoryModule,
     VariationModule,
@@ -30,4 +36,6 @@ import { RefreshModule } from './auth/refresh.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+
+}
