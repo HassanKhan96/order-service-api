@@ -16,7 +16,7 @@ import { RefreshModule } from './auth/refresh.module';
 @Module({
   imports: [
     StoreModule,
-    MongooseModule.forRoot('mongodb://localhost:27017/orderingWebsite'),
+    MongooseModule.forRoot('mongodb+srv://feast-point-service:fps2025@cluster0.3bts6s.mongodb.net'),
     ItemModule,
     CategoryModule,
     VariationModule,
