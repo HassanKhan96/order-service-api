@@ -32,7 +32,7 @@ export class citiesServices {
     return { message: 'city deleted' };
   }
 
-  async updateCity (city:updateCityDto,id:string){
+  async updateCity (id:string,city:updateCityDto){
     const update = await this.cities.findByIdAndUpdate(id,city)
     if(update){
       return {message:"cannot run the update "}

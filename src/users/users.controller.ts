@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   Put,
+  Req,
+  Res,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -14,6 +16,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Otp } from '@getbrevo/brevo';
 import { AuthService } from 'src/auth/auth.service';
 import { RefreshService } from 'src/auth/refresh.service';
+import { Request } from 'express';
 
 @Controller('users')
 export class UsersController {
@@ -46,5 +49,9 @@ export class UsersController {
   @Post('/verify_otp')
   verify(@Body() Otp: string, user_id: string) {
     return this.usersService.verify(Otp, user_id);
+  }
+  @Get("/refresh")
+  getAccestoken(@Req() req:Request, @Res() res:Response){
+    
   }
 }

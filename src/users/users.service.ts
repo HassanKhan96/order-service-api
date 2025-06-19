@@ -16,7 +16,6 @@ import { AuthService } from 'src/auth/auth.service';
 import { AuthModule } from 'src/auth/auth.module';
 import { RefreshService } from 'src/auth/refresh.service';
 import { EmailService } from 'src/email/email.service';
-import { verify } from 'crypto';
 
 @Injectable()
 export class UsersService {

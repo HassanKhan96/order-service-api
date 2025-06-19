@@ -1,21 +1,15 @@
-import { Injectable } from "@nestjs/common";
-import { JwtService } from "@nestjs/jwt";
-
-
+import { Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
-export class RefreshService{
-    constructor(private readonly jwtService:JwtService){}
+export class RefreshService {
+  constructor(private readonly jwtService: JwtService) {}
 
-    generateRefreshToken(payload:any):string{
-        return this.jwtService.sign(payload)
- }
+  generateRefreshToken(payload: any): string {
+    return this.jwtService.sign(payload);
+  }
 
- async verifyRefreshToken(token:string){
-    try{
-        return await this.jwtService.verify(token);
-    }catch(error){
-        return new Error('Invalid Token')
-    }
-}
+  async verifyRefreshToken(token: string) {
+    return await this.jwtService.verify(token);
+  }
 }

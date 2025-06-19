@@ -9,7 +9,7 @@ import { AuthModule } from './auth.module';
   imports: [
     JwtModule.register({
       global: true,
-      secret: 'AYAN_SECRET',
+      secret:process.env.REFRESHTOKEN_SECRET ,
       signOptions: { expiresIn: '7d' },
     }),
     AuthModule
