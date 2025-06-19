@@ -16,7 +16,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Otp } from '@getbrevo/brevo';
 import { AuthService } from 'src/auth/auth.service';
 import { RefreshService } from 'src/auth/refresh.service';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 
 @Controller('users')
 export class UsersController {
@@ -32,8 +32,8 @@ export class UsersController {
   }
 
   @Post('/login')
-  login(@Body() email: string, passsword: string) {
-    return this.usersService.login(email, passsword);
+  login(@Body() body:{email:string,password:string}) {
+    return this.usersService.login(body.email,body.password);
   }
 
   @Put(':id')
@@ -51,7 +51,18 @@ export class UsersController {
     return this.usersService.verify(Otp, user_id);
   }
   @Get("/refresh")
-  getAccestoken(@Req() req:Request, @Res() res:Response){
-    
+  async getAccestoken(@Req() req:Request, @Res() res:Response){
+   const refreshToken =req.cookies["Refresh-token"]
+    try {
+      
+      let isValidUser = await this.RefreshService.verifyRefreshToken(refreshToken)
+
+      let newAccesToken = this.AuthService.generateToken({id:isValidUser._id,email:isValidUser.email})
+       
+      res.status(200).send({accestoken:newAccesToken})
+    } catch (error) {
+      
+    }
+   
   }
 }
